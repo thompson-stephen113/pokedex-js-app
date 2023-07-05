@@ -1,13 +1,17 @@
-let myName = "Bob";
-document.write(myName);
+alert("Hello world");
 
-let simpleAddition = 2 + 2;
-document.write(simpleAddition);
+// let myName = "Bob";
+// document.write(myName);
 
-let size = 100;
-let doubleSize = size * 2;
-document.write(doubleSize);
+// let simpleAddition = 2 + 2;
+// document.write(simpleAddition);
 
-let minSize = (doubleSize * 2) - (size / 2);
-document.write(minSize);
+// let size = 100;
+// let doubleSize = size * 2;
+// document.write(doubleSize);
 
+// let minSize = (doubleSize * 2) - (size / 2);
+// document.write(minSize);
+
+let favoriteFood = "chicken";
+document.write(favoriteFood);
