@@ -1,0 +1,35 @@
+/*----------------------------------Universal----------------------------------*/
+:root {
+    --background-color-primary: rgb(49, 64, 199);
+    --background-color-secondary: rgb(120, 120, 255);
+
+    --font-primary: 'Fira Sans Extra Condensed', sans-serif;
+    --font-color: rgb(219, 219, 23);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+/*----------------------------------Body----------------------------------*/
+html,
+body {
+    background-color: var(--background-color-primary);
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--font-color);
+    line-height: 1.6;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+/*----------------------------------Media Queries----------------------------------*/
+@media all and (max-width: 500px) {
+    body {
+        font-size: 22px
+    };
+}
