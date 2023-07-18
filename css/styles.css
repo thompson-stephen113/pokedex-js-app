@@ -27,6 +27,18 @@ body {
 }
 
 
+/*----------------------------------Paragraphs----------------------------------*/
+@supports (display: grid) {
+    p {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+}
+
 /*----------------------------------Media Queries----------------------------------*/
 @media all and (max-width: 500px) {
     body {
