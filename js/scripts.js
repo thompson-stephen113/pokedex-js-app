@@ -1,7 +1,7 @@
 // IIFE holds the pokemonList array, stored in pokemonRepository
 let pokemonRepository = (function() {
     // Array of Pokemon objects and some general stat properties
-    let pokemonList = [
+    let repository = [
     { 
         name: "Bulbasaur", 
         height: 0.7, 
@@ -50,37 +50,39 @@ let pokemonRepository = (function() {
     ];
 
     function getAll() {
-        return pokemonList;
+        return repository;
     }
 
     function add(pokemon) {
-        pokemonList.push(pokemon);
+        repository.push(pokemon);
     }
+
+    function showDetails(pokemon) {
+        console.log(pokemon)
+    }
+
+    function addListItem(pokemon) {
+        let pokemonList = document.querySelector(".pokemon-list");
+        let listItem = document.createElement("li");
+        let button = document.createElement("button");
+        button.innerText = pokemon.name;
+        button.classList.add("pokemon-button");
+        button.addEventListener("click", function () {
+            showDetails(pokemon);
+        });
+        listItem.appendChild(button);
+        pokemonList.appendChild(listItem);
+    }    
 
     return {
         getAll: getAll,
-        add: add
+        add: add,
+        addListItem: addListItem
     };
 })();
 
-// Storing an empty string in a variable to be populated by forEach loop and written to webpage
-let pokedexEntry = " ";
 
-// Creates a function to run through if-else statements
-function listIteration(pokemon) {
-    // forEach loop iterates through pokemonList and documents each Pokemon and their heights, highlighting ones that are above or below average
-    if (pokemon.height < 1) {
-        pokedexEntry += "<p>" + pokemon.name + " (height: " + pokemon.height + ")" + " - It's tiny!" + "</p>";
-    } else if (pokemon.height >= 1 && pokemon.height <= 1.5) {
-        pokedexEntry += "<p>" + pokemon.name + " (height: " + pokemon.height + ")" + "</p>";
-    } else {
-        pokedexEntry += "<p>" + pokemon.name + " (height: " + pokemon.height + ")" + " - It's huge!" + "</p>";
-    }
-};
-
-// listIteration function fetches all objects in the pokemonList through the pokemonRepository and executes the loop
-pokemonRepository.getAll().forEach(listIteration);
-
-
-// Link to CSS through HTML by fetching the "container" id from <main>
-document.getElementById("container").innerHTML = pokedexEntry;
+// Fetches all objects in the pokemonList through the pokemonRepository and executes the forEach loop
+pokemonRepository.getAll().forEach(function (pokemon) {
+    pokemonRepository.addListItem(pokemon);
+});
