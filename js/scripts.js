@@ -57,13 +57,17 @@ let pokemonRepository = (function() {
         repository.push(pokemon);
     }
 
+    // Shows details of Pokemon when function is called
     function showDetails(pokemon) {
         console.log(pokemon)
     }
 
+    // Adds each Pokemon object from repository as list item to unordered list in <main> of index.html
     function addListItem(pokemon) {
         let pokemonList = document.querySelector(".pokemon-list");
         let listItem = document.createElement("li");
+        
+        // Turns each Pokemon object into a button that listens for a click event to execute showDetails
         let button = document.createElement("button");
         button.innerText = pokemon.name;
         button.classList.add("pokemon-button");
