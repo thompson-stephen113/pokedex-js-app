@@ -2,9 +2,11 @@
 :root {
     --background-color-primary: rgb(49, 64, 199);
     --background-color-secondary: rgb(120, 120, 255);
+    --button-background: rgb(221, 221, 12);
+    --button-border: rgb(193, 193, 253);
 
     --font-primary: 'Fira Sans Extra Condensed', sans-serif;
-    --font-color: rgb(219, 219, 23);
+    --font-color: rgb(0, 0, 0);
 }
 
 * {
@@ -27,17 +29,53 @@ body {
 }
 
 
-/*----------------------------------Paragraphs----------------------------------*/
-@supports (display: grid) {
-    p {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 20px;
-        margin: 0;
-        padding: 20px;
-        text-align: center;
-    }
+/*----------------------------------Headings----------------------------------*/
+h1 {
+    text-align: center;
+    margin-top: 150px;
 }
+
+
+/*----------------------------------Pokedex----------------------------------*/
+.pokemon-list {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-self: center;
+    margin: 40px 10px 5px -25px;
+    list-style-type: none;
+}
+
+
+/*----------------------------------Pokemon Buttons----------------------------------*/
+.pokemon-button {
+    display: inline-block;
+    width: 100%;
+    margin: 5px;
+    font-family: var(--font-primary);
+    font-weight: bold;
+    color: var(--font-color);
+    text-align: left;
+    text-decoration: none;
+    background-color: var(--background-color-secondary);
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid var(--button-border);
+    transition: .2s;
+}
+
+button:hover,
+.button:hover {
+    cursor: pointer;
+    box-shadow: 0 0.5em 0.5em -0.4em var(--button-border);
+    transform: translateY(-0.25em);
+}
+
+button:focus,
+.button:focus {
+    background-color: var(--button-background);
+}
+
 
 /*----------------------------------Media Queries----------------------------------*/
 @media all and (max-width: 500px) {
