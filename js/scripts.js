@@ -166,7 +166,6 @@ function showModalOnClick(event) {
     if (event.target.classList.contains("pokemon-button")) {
         let pokemonName = event.target.innerText;
         let pokemon = pokemonRepository.getAll().find((p) => p.name === pokemonName);
-        showDetails(pokemon);
     }
 };
 
