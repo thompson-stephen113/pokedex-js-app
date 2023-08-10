@@ -37,18 +37,18 @@ h1 {
 
 
 /*----------------------------------Pokedex----------------------------------*/
-.pokemon-list {
+.list-group {
     display: flex;
     width: 100%;
     flex-direction: column;
     align-self: center;
-    margin: 40px 10px 5px -25px;
+    margin: 40px 10px 5px 0px;
     list-style-type: none;
 }
 
 
 /*----------------------------------Pokemon Buttons----------------------------------*/
-.pokemon-button {
+.btn {
     display: inline-block;
     width: 100%;
     margin: 5px;
@@ -69,12 +69,12 @@ button:hover,
     cursor: pointer;
 }
 
-.pokemon-button:hover {
+.btn:hover {
     box-shadow: 0 0.5em 0.5em -0.4em var(--button-border);
     transform: translateY(-0.25em);
 }
 
-.pokemon-button:focus {
+.btn:focus {
     background-color: var(--button-background);
 }
 

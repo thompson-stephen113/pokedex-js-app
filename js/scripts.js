@@ -89,7 +89,7 @@ let pokemonRepository = (function() {
                 });
 
                 // Removes the event listener from showModalOnClick after initial click
-                document.querySelector(".pokemon-list").removeEventListener("click", showModalOnClick);
+                document.querySelector(".list-group").removeEventListener("click", showModalOnClick);
             };
 
             function hideModal() {
@@ -117,13 +117,14 @@ let pokemonRepository = (function() {
 
     // Adds each Pokemon object from repository as list item to unordered list in <main> of index.html
     function addListItem(pokemon) {
-        let pokemonList = document.querySelector(".pokemon-list");
+        let pokemonList = document.querySelector(".list-group");
         let listItem = document.createElement("li");
+        listItem.classList.add("list-group-item");
 
         // Turns each Pokemon object into a button that listens for a click event to execute showDetails
         let button = document.createElement("button");
         button.innerText = capitalize(pokemon.name);
-        button.classList.add("pokemon-button");
+        button.classList.add("btn");
         button.addEventListener("click", function () {
             showDetails(pokemon);
         });
@@ -163,11 +164,11 @@ pokemonRepository.loadList().then(function () {
 
 // Executes the showDetails function for each item in the pokemonRepository when showModalOnClick is called
 function showModalOnClick(event) {
-    if (event.target.classList.contains("pokemon-button")) {
+    if (event.target.classList.contains("btn")) {
         let pokemonName = event.target.innerText;
         let pokemon = pokemonRepository.getAll().find((p) => p.name === pokemonName);
     }
 };
 
 // Executes showModalOnClick when the event listener is triggered
-document.querySelector(".pokemon-list").addEventListener("click", showModalOnClick);
+document.querySelector(".list-group").addEventListener("click", showModalOnClick);
