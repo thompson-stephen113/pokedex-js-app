@@ -51,7 +51,7 @@ let pokemonRepository = (function() {
         });
     }
 
-    // Executes loadDetails and logs to console
+    // Selects modal elements to append Pokédex details
     function showModal(item) {
         let modalBody = $(".modal-body");
         let modalTitle = $(".modal-title");
@@ -99,31 +99,32 @@ let pokemonRepository = (function() {
         modalBody.append(weightElement);
     }
 
+    // Executes loadDetails, then executes showModal
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function () {
             showModal(pokemon);
         });
     }
 
-    // Adds each Pokemon object from repository as list item to unordered list in <main> of index.html
+    // Adds each Pokémon object from repository as list item to unordered list in <main> of index.html
     function addListItem(pokemon) {
-            let pokemonList = document.querySelector(".list-group");
-            let listItem = document.createElement("li");
-            listItem.classList.add("list-group-item");
+        let pokemonList = document.querySelector(".list-group");
+        let listItem = document.createElement("li");
+        listItem.classList.add("list-group-item");
 
-            // Turns each Pokemon object into a button that listens for a click event to execute showDetails
-            let button = document.createElement("button");
-            button.innerText = capitalize(pokemon.name);
-            button.classList.add("btn", "btn-primary");
-            button.setAttribute("data-target", "#modal-container")
-            button.setAttribute("data-toggle", "modal")
-            button.addEventListener("click", function () {
-                showDetails(pokemon);
-            });
+        // Turns each Pokémon object into a button that listens for a click event to execute showDetails
+        let button = document.createElement("button");
+        button.innerText = capitalize(pokemon.name);
+        button.classList.add("btn", "btn-primary");
+        button.setAttribute("data-target", "#modal-container")
+        button.setAttribute("data-toggle", "modal")
+        button.addEventListener("click", function () {
+            showDetails(pokemon);
+        });
 
-            listItem.appendChild(button);
-            pokemonList.appendChild(listItem);
-        }
+        listItem.appendChild(button);
+        pokemonList.appendChild(listItem);
+    }
 
     // Allows for the capitalization of fetched data when called
     function capitalize(string) {
