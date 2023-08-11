@@ -31,107 +31,99 @@ let pokemonRepository = (function() {
         return fetch(url).then(function (response) {
             return response.json();
         }).then(function (details) {
-            item.imageURL = details.sprites.front_default;
+            item.imageURLFront = details.sprites.front_default;
+            item.imageURLBack = details.sprites.back_default;
+
+            item.types = [];
+            for (let i = 0; i < details.types.length; i++) {
+                item.types.push(details.types[i].type.name);
+            }
+
+            item.abilities = [];
+            for (let i = 0; i < details.abilities.length; i++) {
+                item.abilities.push(details.abilities[i].ability.name);
+            }            
+            
             item.height = details.height;
-            item.types = details.types;
+            item.weight = details.weight;
         }).catch(function (e) {
             console.error(e);
         });
     }
 
     // Executes loadDetails and logs to console
+    function showModal(item) {
+        let modalBody = $(".modal-body");
+        let modalTitle = $(".modal-title");
+        modalTitle.empty();
+        modalBody.empty();
+
+        let nameElement = $("<h5>" + capitalize(item.name) + "</h5>");
+        
+        let imageElementFront = $('<img class="modal-img" style="width: 50%">');
+        imageElementFront.attr("src", item.imageURLFront);
+        
+        let imageElementBack = $('<img class="modal-img" style="width: 50%">');
+        imageElementBack.attr("src", item.imageURLBack);
+
+        let typesElement = "";
+        if (item.types.length === 2) {
+            typesElement = $("<p>Type: " + capitalize(item.types[0]) + ", " + capitalize(item.types[1]) + "</p>");
+        } else {
+            typesElement = $("<p>Type: " + capitalize(item.types[0])+ "</p>");
+        }
+        
+        let abilitiesElement = $(
+            "<p>Abilities: " + 
+            capitalize(item.abilities[0]) + 
+            ", " + 
+            capitalize(item.abilities[1]) + 
+            "</p>");
+
+        let heightElement = $(
+            "<p>Height: " + 
+            (item.height / Math.pow(10, 1)).toFixed(1) + 
+            " m</p>");
+
+        let weightElement = $(
+            "<p>Weight: " +
+            (item.weight / Math.pow(10, 1)).toFixed(1) +
+            " kg</p>");
+
+        modalTitle.append(nameElement);
+        modalBody.append(imageElementFront);
+        modalBody.append(imageElementBack);
+        modalBody.append(typesElement);
+        modalBody.append(abilitiesElement);
+        modalBody.append(heightElement);
+        modalBody.append(weightElement);
+    }
+
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function () {
-
-            // Creates a modal that will contain the information of each Pokemon
-            function showModal(title, text) {
-                let modalContainer = document.querySelector("#modal-container");
-                
-                modalContainer.innerHTML = "";
-            
-                let modal = document.createElement("div");
-                modal.classList.add("modal");
-            
-                // Creates a close button for the modal
-                let closeButtonElement = document.createElement("button");
-                closeButtonElement.classList.add("modal-close");
-                closeButtonElement.innerText = "Close";
-                closeButtonElement.addEventListener("click", hideModal);
-            
-                let titleElement = document.createElement("h1");
-                titleElement.innerText = title;
-            
-                let contentElement = document.createElement("p");
-                contentElement.innerText = text;
-
-                // Creates the image container for the Pokemon sprite
-                let spriteContainer = document.querySelector("#sprite-container");
-                let pokemonSprite = document.createElement("img");
-                pokemonSprite.src = pokemon.imageURL;
-                pokemonSprite.setAttribute("height", "200");
-                pokemonSprite.setAttribute("width", "200");
-                spriteContainer.appendChild(pokemonSprite);
-
-                modal.appendChild(closeButtonElement);
-                modal.appendChild(titleElement);
-                modal.appendChild(contentElement);
-                modal.appendChild(pokemonSprite);
-                modalContainer.appendChild(modal);
-                
-                modalContainer.classList.add("is-visible");
-            
-                // Allows closing the modal by clicking outside of it
-                modalContainer.addEventListener("click", (e) => {
-                let target = e.target;
-                if (target === modalContainer) {
-                    hideModal();
-                }
-                });
-
-                // Removes the event listener from showModalOnClick after initial click
-                document.querySelector(".list-group").removeEventListener("click", showModalOnClick);
-            };
-
-            function hideModal() {
-                let modalContainer = document.querySelector("#modal-container");
-                modalContainer.classList.remove("is-visible");
-            }
-            
-            // Allows closing the modal with Escape key
-            window.addEventListener("keydown", (e) => {
-                let modalContainer = document.querySelector("#modal-container");
-                if (e.key === "Escape" && modalContainer.classList.contains("is-visible")) {
-                hideModal();
-                }
-            });
-            
-            // Tells the modal what to display when showModal is executed
-            showModal(
-                capitalize(pokemon.name), 
-                "Height: " + (pokemon.height / Math.pow(10, 1)).toFixed(1) + " m"
-                );
-        }).catch(function (e) {
-            console.error(e);
+            showModal(pokemon);
         });
     }
 
     // Adds each Pokemon object from repository as list item to unordered list in <main> of index.html
     function addListItem(pokemon) {
-        let pokemonList = document.querySelector(".list-group");
-        let listItem = document.createElement("li");
-        listItem.classList.add("list-group-item");
+            let pokemonList = document.querySelector(".list-group");
+            let listItem = document.createElement("li");
+            listItem.classList.add("list-group-item");
 
-        // Turns each Pokemon object into a button that listens for a click event to execute showDetails
-        let button = document.createElement("button");
-        button.innerText = capitalize(pokemon.name);
-        button.classList.add("btn");
-        button.addEventListener("click", function () {
-            showDetails(pokemon);
-        });
+            // Turns each Pokemon object into a button that listens for a click event to execute showDetails
+            let button = document.createElement("button");
+            button.innerText = capitalize(pokemon.name);
+            button.classList.add("btn", "btn-primary");
+            button.setAttribute("data-target", "#modal-container")
+            button.setAttribute("data-toggle", "modal")
+            button.addEventListener("click", function () {
+                showDetails(pokemon);
+            });
 
-        listItem.appendChild(button);
-        pokemonList.appendChild(listItem);
-    }
+            listItem.appendChild(button);
+            pokemonList.appendChild(listItem);
+        }
 
     // Allows for the capitalization of fetched data when called
     function capitalize(string) {
@@ -154,21 +146,9 @@ let pokemonRepository = (function() {
 
 
 
-
 // Fetches all objects from API and executes the forEach loop
 pokemonRepository.loadList().then(function () {
     pokemonRepository.getAll().forEach(function (pokemon) {
         pokemonRepository.addListItem(pokemon);
     });
 });
-
-// Executes the showDetails function for each item in the pokemonRepository when showModalOnClick is called
-function showModalOnClick(event) {
-    if (event.target.classList.contains("btn")) {
-        let pokemonName = event.target.innerText;
-        let pokemon = pokemonRepository.getAll().find((p) => p.name === pokemonName);
-    }
-};
-
-// Executes showModalOnClick when the event listener is triggered
-document.querySelector(".list-group").addEventListener("click", showModalOnClick);
