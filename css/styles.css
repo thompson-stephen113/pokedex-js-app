@@ -1,16 +1,13 @@
 /*----------------------------------Universal----------------------------------*/
 :root {
     --background-color-primary: rgb(49, 64, 199);
-    --background-color-secondary: rgb(120, 120, 255);
-    --button-background: rgb(221, 221, 12);
+    --button-color: rgb(120, 120, 255);
+    --button-focus: rgb(221, 221, 12);
     --button-border: rgb(193, 193, 253);
+    --modal-background: #fff;
 
     --font-primary: 'Fira Sans Extra Condensed', sans-serif;
-    --font-color: rgb(0, 0, 0);
-}
-
-* {
-    box-sizing: border-box;
+    --font-color-primary: #000;
 }
 
 
@@ -21,7 +18,7 @@ body {
     font-family: var(--font-primary);
     font-weight: 400;
     font-size: 20px;
-    color: var(--font-color);
+    color: var(--font-color-primary);
     line-height: 1.6;
     height: 100%;
     margin: 0;
@@ -32,11 +29,14 @@ body {
 /*----------------------------------Headings----------------------------------*/
 h1 {
     text-align: center;
-    margin-top: 150px;
+    margin-top: 125px;
+    padding: 10px;
+    background-color: var(--button-focus);
+    border-radius: 100px;
 }
 
 
-/*----------------------------------Pokedex----------------------------------*/
+/*----------------------------------Pokédex----------------------------------*/
 .list-group {
     display: flex;
     width: 100%;
@@ -46,18 +46,27 @@ h1 {
     list-style-type: none;
 }
 
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 0px;
+    margin-bottom: 0px;
+    background: none;
+    border: none;
+}
 
 /*----------------------------------Pokemon Buttons----------------------------------*/
-.btn {
+.btn,
+.btn-primary {
     display: inline-block;
     width: 100%;
     margin: 5px;
     font-family: var(--font-primary);
     font-weight: bold;
-    color: var(--font-color);
+    color: var(--font-color-primary);
     text-align: left;
     text-decoration: none;
-    background-color: var(--background-color-secondary);
+    background-color: var(--button-color);
     padding: 10px;
     border: none;
     border-bottom: 2px solid var(--button-border);
@@ -69,13 +78,16 @@ button:hover,
     cursor: pointer;
 }
 
-.btn:hover {
+.btn:hover,
+.btn-primary:hover {
+    color: var(--font-color-primary);
+    background-color: var(--button-color);
     box-shadow: 0 0.5em 0.5em -0.4em var(--button-border);
     transform: translateY(-0.25em);
 }
 
 .btn:focus {
-    background-color: var(--button-background);
+    background-color: var(--button-focus);
 }
 
 
@@ -84,54 +96,12 @@ button:hover,
     display: none;
 }
 
-#modal-container.is-visible {
-    position: fixed;
-    padding: 20px;
-    box-sizing: border-box;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    
-    /* to show it above other content */
-    z-index: 999; 
-    
-    /* to allow scrolling if the screen is not high enough*/
-    overflow: auto; 
-    
-    /* this is used to center the modal */
-    display: grid;
-    text-align: center;
-}
-
 .modal {
     margin: auto;
     display: inline-block;
-    box-sizing: border-box;
-    background: #fff;
-    padding: 15px;
-    width: 100%;
-    max-width: 700px;
-    text-align: left;
-}
-
-.modal-close {
-    float: right;
-    border: 0;
+    background-color: var(--modal-background);
     background: none;
-    color: #777;
-    text-decoration: underline;
-}
-
-.modal h1 {
-    margin-top: 0;
-    text-align: left;
-}
-
-.modal p {
-    margin-bottom: 0;
-    text-align: left;
+    padding: 15px;
 }
 
 
