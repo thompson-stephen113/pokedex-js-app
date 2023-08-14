@@ -75,9 +75,9 @@ let pokemonRepository = (function() {
         
         let abilitiesElement = "";
         if (item.abilities.length === 2) {
-            typesElement = $("<p>Abilities: " + capitalize(item.abilities[0]) + ", " + capitalize(item.abilities[1]) + "</p>");
+            abilitiesElement = $("<p>Abilities: " + capitalize(item.abilities[0]) + ", " + capitalize(item.abilities[1]) + "</p>");
         } else {
-            typesElement = $("<p>Ability: " + capitalize(item.abilities[0])+ "</p>");
+            abilitiesElement = $("<p>Ability: " + capitalize(item.abilities[0])+ "</p>");
         }
         
         let heightElement = $(
