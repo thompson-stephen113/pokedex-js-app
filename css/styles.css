@@ -37,15 +37,6 @@ h1 {
 
 
 /*----------------------------------Pokédex----------------------------------*/
-.list-group {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-self: center;
-    margin: 40px 10px 5px 0px;
-    list-style-type: none;
-}
-
 .list-group-item {
     position: relative;
     display: block;
@@ -67,7 +58,7 @@ h1 {
     text-align: left;
     text-decoration: none;
     background-color: var(--button-color);
-    padding: 10px;
+    /* padding: 10px; */
     border: none;
     border-bottom: 2px solid var(--button-border);
     transition: .2s;
@@ -105,9 +96,3 @@ button:hover,
 }
 
 
-/*----------------------------------Media Queries----------------------------------*/
-@media all and (max-width: 500px) {
-    body {
-        font-size: 22px
-    };
-}
